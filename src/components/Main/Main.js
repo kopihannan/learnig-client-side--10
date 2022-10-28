@@ -9,11 +9,8 @@ const Main = () => {
         <div>
             <nav className='main-header'>
                 <Header></Header>
-                <Home></Home>
                 <Outlet></Outlet>
-
-            </nav>
-            
+            </nav>           
         </div>
     );
 };
