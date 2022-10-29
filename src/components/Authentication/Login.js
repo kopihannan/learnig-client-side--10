@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
-import { GoogleAuthProvider } from 'firebase/auth';
+import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
 
-    const { loginForm, googleProvider } = useContext(AuthContext);
+    const { loginForm, googleProvider, facebookProvider } = useContext(AuthContext);
     const provider = new GoogleAuthProvider();
+    const providerFacebook = new FacebookAuthProvider();
 
     const handleGoogleProvider =()=>{
         googleProvider(provider)
@@ -16,6 +17,17 @@ const Login = () => {
             console.log(user);
         })
         .catch(error=>{
+            console.error(error)
+        })
+    }
+
+    const handleFacebook =()=>{
+        facebookProvider(providerFacebook)
+        .then(result => {
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(error => {
             console.error(error)
         })
     }
@@ -64,7 +76,7 @@ const Login = () => {
                         <hr/>
                         <div className='flex justify-center items-center text-center'>
                             <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle  /></Link>
-                            <Link className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook  /></Link>
+                            <Link onClick={handleFacebook} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook  /></Link>
                         </div>
                     </form>
                 </div>

@@ -25,7 +25,7 @@ const Header = () => {
                     <Link to='/' className=" font-bold text-2xl text-orange-500">WEB STUDIO.</Link>
                 </div>
                 <div className=''>
-                    <Link className='btn btn-ghost font-semibold text-orange-500'>Courses</Link>
+                    <Link to='/course' className='btn btn-ghost font-semibold text-orange-500'>Courses</Link>
                     <Link className='btn btn-ghost font-semibold text-orange-500'>Blog</Link>
                     <Link className='btn btn-ghost font-semibold text-orange-500'>Faq</Link>
                     {

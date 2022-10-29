@@ -42,12 +42,18 @@ const UserContext = ({children}) => {
     const googleProvider =(provider)=>{
         return signInWithPopup(auth, provider)
     }
+
+    //facebook login with popup
+    const facebookProvider = (provider)=>{
+        return signInWithPopup(auth, provider)
+    }
+
     //Logout user
     const userLogout = ()=>{
         return signOut(auth)
     }
 
-    const authInfo = {user, registerForm, loginForm, userLogout, updateProfileUser, googleProvider}
+    const authInfo = {user, registerForm, loginForm, userLogout, updateProfileUser, googleProvider, facebookProvider}
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
