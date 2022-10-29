@@ -1,29 +1,42 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
 
-    const {loginForm} = useContext(AuthContext);
+    const { loginForm, googleProvider } = useContext(AuthContext);
+    const provider = new GoogleAuthProvider();
 
-    const handleLogin=(e)=>{
+    const handleGoogleProvider =()=>{
+        googleProvider(provider)
+        .then(result =>{
+            const user = result.user;
+            console.log(user);
+        })
+        .catch(error=>{
+            console.error(error)
+        })
+    }
+
+    const handleLogin = (e) => {
         e.preventDefault()
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        
+
         loginForm(email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            console.log(user);
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error(errorMessage)
-          });
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user);
+                // ...
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.error(errorMessage)
+            });
     }
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -47,6 +60,11 @@ const Login = () => {
                         </div>
                         <div className='text-center mt-3'>
                             <small><Link className='font-medium label-text-alt link link-hover' to='/register'>Create an Account?</Link></small>
+                        </div>
+                        <hr/>
+                        <div className='flex justify-center items-center text-center'>
+                            <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle  /></Link>
+                            <Link className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook  /></Link>
                         </div>
                     </form>
                 </div>
