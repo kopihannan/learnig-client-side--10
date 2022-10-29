@@ -5,7 +5,7 @@ import { AuthContext } from '../../Routes/UserContext';
 
 const Register = () => {
 
-    const {registerForm} = useContext(AuthContext);
+    const {registerForm, updateProfileUser} = useContext(AuthContext);
 
 
     const handleRegister =(e)=>{
@@ -21,7 +21,13 @@ const Register = () => {
             // Signed in 
             const user = userCredential.user;
             console.log(user);
-            // ...
+            updateProfileUser(name, imgUrl)
+            .then(()=>{
+
+            })
+            .catch((error)=>{
+                
+            })
           })
           .catch((error) => {
             const errorCode = error.code;
