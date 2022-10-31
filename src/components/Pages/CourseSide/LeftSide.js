@@ -10,7 +10,7 @@ const LeftSide = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/categories')
+        fetch('https://server-web-studio.vercel.app/categories')
             .then(rel => rel.json())
             .then(data => setItm(data))
     }, [])

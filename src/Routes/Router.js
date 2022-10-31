@@ -28,11 +28,11 @@ const router = createBrowserRouter([{
         {path: '/details/:id',  element: <DetailsPage></DetailsPage>,
     
         loader: ({ params }) => {
-            return fetch(`http://localhost:5000/course/${params.id}`)
+            return fetch(`https://server-web-studio.vercel.app/course/${params.id}`)
            }},
 
         {path: '/checkout/:id', element:  <PrivateRoutes><Checkout></Checkout></PrivateRoutes>,loader: ({ params }) => {
-            return fetch(`http://localhost:5000/course/${params.id}`)
+            return fetch(`https://server-web-studio.vercel.app/course/${params.id}`)
            }}
     ]
 }])
