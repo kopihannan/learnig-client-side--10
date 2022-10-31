@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Register = () => {
@@ -20,9 +22,11 @@ const Register = () => {
                 const user = result.user;
                 navigate('/')
                 console.log(user);
+                toast.success("Registation Successfull")
             })
             .catch(error => {
                 console.error(error)
+                toast.error("Failed Registation")
             })
     }
     // facebook login popup
@@ -32,9 +36,11 @@ const Register = () => {
                 const user = result.user;
                 navigate('/')
                 console.log(user);
+                toast.success("Registation Successfull")
             })
             .catch(error => {
                 console.error(error)
+                toast.error("Failed Registation")
             })
     }
     // manual registation user 
@@ -53,7 +59,8 @@ const Register = () => {
                 console.log(user);
                 updateProfileUser(name, imgUrl)
                     .then(() => {
-                        navigate('/login')
+                        navigate('/')
+                        toast.success("Registation Successfull")
                     })
                     .catch((error) => {
 
@@ -62,6 +69,7 @@ const Register = () => {
             .catch((error) => {
                 const errorMessage = error.message;
                 console.error(errorMessage)
+                toast.error("Failed Registation")
                 // ..
             });
     }
@@ -97,6 +105,7 @@ const Register = () => {
                             <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle /></Link>
                             <Link onClick={handleFacebook} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook /></Link>
                         </div>
+                        <ToastContainer/>
                     </form>
                 </div>
             </div>

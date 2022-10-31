@@ -8,6 +8,7 @@ import LeftSide from "../components/Pages/CourseSide/LeftSide";
 import RightSide from "../components/Pages/CourseSide/RightSide";
 import DetailsPage from "../components/Pages/CourseSide/DetailsPage";
 import Checkout from "../components/Pages/Checkout";
+import PrivateRoutes from "./PrivateRoutes";
 
 
 
@@ -35,7 +36,7 @@ const router = createBrowserRouter([{
             return fetch(`http://localhost:5000/course/${params.id}`)
            }},
 
-        {path: '/checkout/:id', element: <Checkout></Checkout>,loader: ({ params }) => {
+        {path: '/checkout/:id', element:  <PrivateRoutes><Checkout></Checkout></PrivateRoutes>,loader: ({ params }) => {
             return fetch(`http://localhost:5000/course/${params.id}`)
            }}
     ]

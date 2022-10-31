@@ -9,15 +9,18 @@ const auth = getAuth(app);
 
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
 
     //registation user
     const registerForm = (email, password)=>{
+        setLoading(true)
        return createUserWithEmailAndPassword(auth, email, password);
     }
 
     //Login user
     const loginForm = (email, password)=>{
+        setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     }
 
@@ -26,6 +29,7 @@ const UserContext = ({children}) => {
     useEffect(()=>{
       const unSubscribe =  onAuthStateChanged(auth, (currentUser)=>{
             setUser(currentUser)
+            setLoading(false)
         })
 
         return ()=>{
@@ -35,6 +39,7 @@ const UserContext = ({children}) => {
 
     //update profile 
     const updateProfileUser =(name, imgUrl)=>{
+        setLoading(true)
       return  updateProfile(auth.currentUser, {
             displayName: name,
             photoURL: imgUrl,
@@ -43,20 +48,23 @@ const UserContext = ({children}) => {
 
     //Google PropUp login 
     const googleProvider =(provider)=>{
+        setLoading(true)
         return signInWithPopup(auth, provider)
     }
 
     //facebook login with popup
     const facebookProvider = (provider)=>{
+        setLoading(true)
         return signInWithPopup(auth, provider)
     }
 
     //Logout user
     const userLogout = ()=>{
+        setLoading(true)
         return signOut(auth)
     }
 
-    const authInfo = {user, registerForm, loginForm, userLogout, updateProfileUser, googleProvider, facebookProvider}
+    const authInfo = {user, loading, registerForm, loginForm, userLogout, updateProfileUser, googleProvider, facebookProvider}
     return (
         <AuthContext.Provider value={authInfo}>
             {children}

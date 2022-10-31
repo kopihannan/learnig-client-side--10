@@ -1,23 +1,32 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
     const { loginForm, googleProvider, facebookProvider } = useContext(AuthContext);
     const provider = new GoogleAuthProvider();
     const providerFacebook = new FacebookAuthProvider();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleGoogleProvider =()=>{
         googleProvider(provider)
         .then(result =>{
             const user = result.user;
+            navigate(from, { replace: true });
+            toast.success("Login Successfull")
             console.log(user);
         })
         .catch(error=>{
             console.error(error)
+            toast.error('failed login!')
         })
     }
 
@@ -25,10 +34,13 @@ const Login = () => {
         facebookProvider(providerFacebook)
         .then(result => {
             const user = result.user;
+            navigate(from, { replace: true });
+            toast.success("Login Successfull")
             console.log(user);
         })
         .catch(error => {
             console.error(error)
+            toast.error('failed login!')
         })
     }
 
@@ -37,17 +49,21 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
+  
 
         loginForm(email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                navigate(from, { replace: true });
+                toast.success("Login Successfull")
                 console.log(user);
                 // ...
             })
             .catch((error) => {
                 const errorMessage = error.message;
                 console.error(errorMessage)
+                toast.error('failed login!')
             });
     }
     return (
@@ -70,6 +86,7 @@ const Login = () => {
                         <div className="form-control mt-6">
                             <button className="btn btn-secondary">Login</button>
                         </div>
+
                         <div className='text-center mt-3'>
                             <small><Link className='font-medium label-text-alt link link-hover' to='/register'>Create an Account?</Link></small>
                         </div>
@@ -78,6 +95,7 @@ const Login = () => {
                             <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle  /></Link>
                             <Link onClick={handleFacebook} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook  /></Link>
                         </div>
+                        <ToastContainer />
                     </form>
                 </div>
             </div>
