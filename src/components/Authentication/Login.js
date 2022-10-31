@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
@@ -16,32 +16,35 @@ const Login = () => {
 
     const from = location.state?.from?.pathname || "/";
 
-    const handleGoogleProvider =()=>{
+    const [error, setError] = useState("");
+
+    const handleGoogleProvider = () => {
         googleProvider(provider)
-        .then(result =>{
-            const user = result.user;
-            navigate(from, { replace: true });
-            toast.success("Login Successfull")
-            console.log(user);
-        })
-        .catch(error=>{
-            console.error(error)
-            toast.error('failed login!')
-        })
+            .then(result => {
+                const user = result.user;
+                navigate(from, { replace: true });
+                toast.success("Login Successfull")
+                console.log(user);
+            })
+            .catch(error => {
+                setError("email address or password doesn't match")
+                toast.error('failed login!')
+            })
     }
 
-    const handleFacebook =()=>{
+    const handleFacebook = () => {
         facebookProvider(providerFacebook)
-        .then(result => {
-            const user = result.user;
-            navigate(from, { replace: true });
-            toast.success("Login Successfull")
-            console.log(user);
-        })
-        .catch(error => {
-            console.error(error)
-            toast.error('failed login!')
-        })
+            .then(result => {
+                const user = result.user;
+                navigate(from, { replace: true });
+                toast.success("Login Successfull")
+                console.log(user);
+            })
+            .catch(error => {
+                console.error(error)
+                setError("email address or password doesn't match")
+                toast.error('failed login!')
+            })
     }
 
     const handleLogin = (e) => {
@@ -49,20 +52,16 @@ const Login = () => {
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-  
+
 
         loginForm(email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
                 navigate(from, { replace: true });
                 toast.success("Login Successfull")
-                console.log(user);
-                // ...
             })
             .catch((error) => {
-                const errorMessage = error.message;
-                console.error(errorMessage)
+                setError("email address or password doesn't match")
                 toast.error('failed login!')
             });
     }
@@ -74,11 +73,12 @@ const Login = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleLogin} className="card-body">
+                        <p><small className='text-red-500 py-2'>{error}</small> </p>
                         <div className="form-control">
-                            <input type="text" placeholder="email" className="input input-bordered" name='email' />
+                            <input type="email" placeholder="email" className="input input-bordered" name='email' />
                         </div>
                         <div className="form-control">
-                            <input type="text" placeholder="password" className="input input-bordered" name='password' />
+                            <input type="password" placeholder="password" className="input input-bordered" name='password' />
                             <label className="label">
                                 <Link href="#" className="label-text-alt link link-hover">Forgot password?</Link>
                             </label>
@@ -90,10 +90,10 @@ const Login = () => {
                         <div className='text-center mt-3'>
                             <small><Link className='font-medium label-text-alt link link-hover' to='/register'>Create an Account?</Link></small>
                         </div>
-                        <hr/>
+                        <hr />
                         <div className='flex justify-center items-center text-center'>
-                            <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle  /></Link>
-                            <Link onClick={handleFacebook} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook  /></Link>
+                            <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle /></Link>
+                            <Link onClick={handleFacebook} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook /></Link>
                         </div>
                         <ToastContainer />
                     </form>

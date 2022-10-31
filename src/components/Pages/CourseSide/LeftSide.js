@@ -25,9 +25,8 @@ const LeftSide = () => {
                             <div className="card-body">
                                 <h2 className="card-title">{d.title}</h2>
                                 <h2 className="text-lg font-semibold">Price: ${d.price}</h2>
-                                <div className="card-actions justify-between ">
-                                    <Link className="btn btn-warning">View Details</Link>
-                                    <Link className="btn btn-success">Buy Now</Link>
+                                <div className="card-actions justify-end ">
+                                    <Link className="btn btn-warning">Buy Now</Link>
                                 </div>
                             </div>
                         </div>

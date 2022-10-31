@@ -4,8 +4,6 @@ import Home from "../components/Pages/Home";
 import Faq from '../components/Pages/Faq'
 import Blog from '../components/Pages/Blog'
 import Courses from "../components/Pages/Courses";
-import LeftSide from "../components/Pages/CourseSide/LeftSide";
-import RightSide from "../components/Pages/CourseSide/RightSide";
 import DetailsPage from "../components/Pages/CourseSide/DetailsPage";
 import Checkout from "../components/Pages/Checkout";
 import PrivateRoutes from "./PrivateRoutes";
@@ -21,15 +19,10 @@ const router = createBrowserRouter([{
     children: [
         { path: '/', element: <Home></Home> },
         { path: '/blog', element: <Blog></Blog> },
-        { path: '/course/', element: <Courses></Courses>, },
+        { path: '/course', element: <Courses></Courses>, },
         { path: '/faq', element: <Faq></Faq> },
         { path: '/login', element: <Login></Login> },
         { path: '/register', element: <Register></Register> },
-        {
-            path: '/products/:id', element: <LeftSide></LeftSide>,
-        },
-        { path: '/news/:id', element: <RightSide></RightSide>},
-
         {path: '/details/:id',  element: <DetailsPage></DetailsPage>,
     
         loader: ({ params }) => {

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
@@ -15,6 +15,8 @@ const Register = () => {
     const provider = new GoogleAuthProvider();
     const providerFacebook = new FacebookAuthProvider();
 
+    const [error, setError] = useState('');
+
     //google login popup
     const handleGoogleProvider = () => {
         googleProvider(provider)
@@ -25,8 +27,8 @@ const Register = () => {
                 toast.success("Registation Successfull")
             })
             .catch(error => {
-                console.error(error)
-                toast.error("Failed Registation")
+                setError('already use an email account')
+                toast.error("Registation failed")
             })
     }
     // facebook login popup
@@ -39,8 +41,8 @@ const Register = () => {
                 toast.success("Registation Successfull")
             })
             .catch(error => {
-                console.error(error)
-                toast.error("Failed Registation")
+                setError('already use an email account')
+                toast.error("Registation failed")
             })
     }
     // manual registation user 
@@ -63,13 +65,13 @@ const Register = () => {
                         toast.success("Registation Successfull")
                     })
                     .catch((error) => {
-
+                        setError('already use an email account')
+                        toast.error("Registation failed")
                     })
             })
             .catch((error) => {
-                const errorMessage = error.message;
-                console.error(errorMessage)
-                toast.error("Failed Registation")
+                setError('already use an email account')
+                toast.error("Registation failed")
                 // ..
             });
     }
@@ -81,8 +83,9 @@ const Register = () => {
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <form onSubmit={handleRegister} className="card-body">
+                        <p><small className='text-red-500 py-2'>{error}</small> </p>
                         <div className="form-control">
-                            <input type="text" placeholder="name" className="input input-bordered" name='name' />
+                            <input type="text" placeholder="Full Name" className="input input-bordered" name='name' />
                         </div>
                         <div className="form-control">
                             <input type="email" placeholder="email" className="input input-bordered" name='email' />
@@ -105,7 +108,7 @@ const Register = () => {
                             <Link onClick={handleGoogleProvider} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl'><FaGoogle /></Link>
                             <Link onClick={handleFacebook} className='bg-slate-100 p-3 shadow-lg rounded-full text-xl ml-2'><FaFacebook /></Link>
                         </div>
-                        <ToastContainer/>
+                        <ToastContainer />
                     </form>
                 </div>
             </div>
