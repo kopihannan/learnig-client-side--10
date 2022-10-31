@@ -7,6 +7,7 @@ import Courses from "../components/Pages/Courses";
 import DetailsPage from "../components/Pages/CourseSide/DetailsPage";
 import Checkout from "../components/Pages/Checkout";
 import PrivateRoutes from "./PrivateRoutes";
+import ErrorPage from "../components/Pages/ErrorPage";
 
 
 
@@ -15,6 +16,7 @@ const { default: Main } = require("../components/Main/Main");
 
 const router = createBrowserRouter([{
     path: '/', element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     
     children: [
         { path: '/', element: <Home></Home> },
