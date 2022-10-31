@@ -14,7 +14,7 @@ const RightSide = () => {
             <h2 className='text-3xl font-bold pb-6 pl-2'>Category </h2>
             {
                 catagory.map(c=> <p key={c.id}>
-                    <Link className='btn btn-link' to={`/single/${c.id}`}>{c.title} </Link>
+                    <Link className='btn btn-link' to={`/details/${c.id}`}>{c.title} </Link>
                 </p>)
             }
         </div>

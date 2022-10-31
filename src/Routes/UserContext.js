@@ -2,12 +2,15 @@ import React, { createContext, useEffect, useState } from 'react';
 import app from '../firebase/firebase.config';
 import  {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile, signInWithPopup } from 'firebase/auth';
 
+
+
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const UserContext = ({children}) => {
     const [user, setUser] = useState(null);
-    
+
+
     //registation user
     const registerForm = (email, password)=>{
        return createUserWithEmailAndPassword(auth, email, password);

@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Routes/UserContext';
 import { FaGoogle, FaFacebook } from 'react-icons/fa';
 import { FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 
 
 const Register = () => {
+
+    const navigate = useNavigate();
 
     const { registerForm, updateProfileUser, googleProvider, facebookProvider } = useContext(AuthContext);
     const provider = new GoogleAuthProvider();
@@ -16,6 +18,7 @@ const Register = () => {
         googleProvider(provider)
             .then(result => {
                 const user = result.user;
+                navigate('/')
                 console.log(user);
             })
             .catch(error => {
@@ -27,6 +30,7 @@ const Register = () => {
         facebookProvider(providerFacebook)
             .then(result => {
                 const user = result.user;
+                navigate('/')
                 console.log(user);
             })
             .catch(error => {
@@ -49,7 +53,7 @@ const Register = () => {
                 console.log(user);
                 updateProfileUser(name, imgUrl)
                     .then(() => {
-
+                        navigate('/login')
                     })
                     .catch((error) => {
 

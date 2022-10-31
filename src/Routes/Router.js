@@ -6,7 +6,8 @@ import Blog from '../components/Pages/Blog'
 import Courses from "../components/Pages/Courses";
 import LeftSide from "../components/Pages/CourseSide/LeftSide";
 import RightSide from "../components/Pages/CourseSide/RightSide";
-import Single from "../components/Pages/CourseSide/Single";
+import DetailsPage from "../components/Pages/CourseSide/DetailsPage";
+import Checkout from "../components/Pages/Checkout";
 
 
 
@@ -15,6 +16,7 @@ const { default: Main } = require("../components/Main/Main");
 
 const router = createBrowserRouter([{
     path: '/', element: <Main></Main>,
+    
     children: [
         { path: '/', element: <Home></Home> },
         { path: '/blog', element: <Blog></Blog> },
@@ -27,9 +29,13 @@ const router = createBrowserRouter([{
         },
         { path: '/news/:id', element: <RightSide></RightSide>},
 
-        {path: '/single/:id',  element: <Single></Single>,
+        {path: '/details/:id',  element: <DetailsPage></DetailsPage>,
     
         loader: ({ params }) => {
+            return fetch(`http://localhost:5000/course/${params.id}`)
+           }},
+
+        {path: '/checkout/:id', element: <Checkout></Checkout>,loader: ({ params }) => {
             return fetch(`http://localhost:5000/course/${params.id}`)
            }}
     ]
